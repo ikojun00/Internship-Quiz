@@ -1,0 +1,75 @@
+generator client {
+  provider = "prisma-client-js"
+  output = "../../node_modules/.prisma/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           Int      @id @default(autoincrement())
+  username     String   @unique
+  password     String
+  role         Role     @default(USER)
+  totalPoints  Int      @default(0)
+  scores       UserQuizScore[]
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Category {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  quizzes   Quiz[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Quiz {
+  id          Int       @id @default(autoincrement())
+  title       String
+  category    Category  @relation(fields: [categoryId], references: [id])
+  categoryId  Int
+  questions   Question[]
+  scores      UserQuizScore[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Question {
+  id           Int       @id @default(autoincrement())
+  quiz         Quiz      @relation(fields: [quizId], references: [id])
+  quizId       Int
+  text         String
+  type         QuestionType
+  options      Json?
+  correctAnswer Json
+  points       Int
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model UserQuizScore {
+  id        Int      @id @default(autoincrement())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+  quiz      Quiz     @relation(fields: [quizId], references: [id])
+  quizId    Int
+  score     Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum QuestionType {
+  ABC
+  FILL_IN
+  MATCHING
+  SLIDER
+}

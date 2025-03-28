@@ -2,7 +2,7 @@
 CREATE TYPE "Role" AS ENUM ('USER', 'ADMIN');
 
 -- CreateEnum
-CREATE TYPE "QuestionType" AS ENUM ('ABC', 'FILL_IN', 'MATCHING', 'SLIDER');
+CREATE TYPE "QuestionType" AS ENUM ('ABC', 'FILL_IN', 'SLIDER');
 
 -- CreateTable
 CREATE TABLE "User" (
@@ -10,7 +10,6 @@ CREATE TABLE "User" (
     "username" TEXT NOT NULL,
     "password" TEXT NOT NULL,
     "role" "Role" NOT NULL DEFAULT 'USER',
-    "totalPoints" INTEGER NOT NULL DEFAULT 0,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 

@@ -6,6 +6,7 @@ import {
   UseGuards,
   Param,
   Req,
+  Patch,
 } from '@nestjs/common';
 import { AuthGuard } from '../auth/auth.guard';
 import { Roles } from '../auth/roles.decorator';
@@ -27,17 +28,33 @@ export class ScoreController {
     return this.scoreService.create(createScoreDto);
   }
 
+  @Get(':quizId')
+  @ApiOperation({ summary: 'Get score by quizId' })
+  getScore(@Req() req, @Param('quizId') quizId: string) {
+    return this.scoreService.getScore(req.user.sub, +quizId);
+  }
+
+  @Patch(':quizId')
+  @ApiOperation({ summary: 'Update score by quizId' })
+  updateScore(
+    @Req() req,
+    @Param('quizId') quizId: string,
+    @Body() score: string,
+  ) {
+    return this.scoreService.updateScore(req.user.sub, +quizId, +score);
+  }
+
   @Get('summary')
   @ApiOperation({ summary: 'Get scores summary (Admin Only)' })
   @UseGuards(RolesGuard)
   @Roles(Role.ADMIN)
-  async getTotalScores() {
+  getTotalScores() {
     return this.scoreService.getTotalScoresForAllUsers();
   }
 
   @Get('my-rank')
   @ApiOperation({ summary: 'Get user rank' })
-  async getUserRank(@Req() req) {
+  getUserRank(@Req() req) {
     const userId = req.user.sub;
     return this.scoreService.calculateUserRank(+userId);
   }

@@ -16,17 +16,23 @@ export class ScoreService {
     private quizService: QuizService,
   ) {}
 
-  async create(createScoreDto: CreateScoreDto) {
-    await this.userService.getUserById(createScoreDto.userId);
-    await this.quizService.getQuizById(createScoreDto.quizId);
+  async getScore(userId: number, quizId: number) {
+    await this.userService.getUserById(userId);
+    await this.quizService.getQuizById(quizId);
 
-    const existingScore = await this.prisma.userQuizScore.findFirst({
+    return await this.prisma.userQuizScore.findFirst({
       where: {
-        userId: createScoreDto.userId,
-        quizId: createScoreDto.quizId,
+        userId,
+        quizId,
       },
     });
+  }
 
+  async create(createScoreDto: CreateScoreDto) {
+    const existingScore = await this.getScore(
+      createScoreDto.userId,
+      createScoreDto.quizId,
+    );
     if (existingScore) {
       throw new ForbiddenException('User already has a score for this quiz');
     }
@@ -36,8 +42,23 @@ export class ScoreService {
     });
   }
 
+  async updateScore(userId: number, quizId: number, score: number) {
+    const existingScore = await this.getScore(userId, quizId);
+
+    if (!existingScore) {
+      throw new Error(
+        `Score for userId ${userId} and quizId ${quizId} not found`,
+      );
+    }
+
+    return this.prisma.userQuizScore.update({
+      where: { id: existingScore.id },
+      data: { score },
+    });
+  }
+
   async getTotalScoresForAllUsers() {
-    return this.prisma.userQuizScore.groupBy({
+    const scores = await this.prisma.userQuizScore.groupBy({
       by: ['userId'],
       _sum: {
         score: true,
@@ -48,6 +69,16 @@ export class ScoreService {
         },
       },
     });
+
+    return await Promise.all(
+      scores.map(async (score) => {
+        const user = await this.userService.getUserById(score.userId);
+        return {
+          user,
+          totalScore: score._sum.score,
+        };
+      }),
+    );
   }
 
   async calculateUserRank(userId: number) {
@@ -95,7 +126,3 @@ export class ScoreService {
     throw new NotFoundException('User ranking not found');
   }
 }
-
-/*rolesGuard dodati na admin endpointe
-
-req bi treba imati type */

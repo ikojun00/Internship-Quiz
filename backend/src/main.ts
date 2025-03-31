@@ -12,6 +12,7 @@ async function bootstrap() {
       transformOptions: { enableImplicitConversion: false },
     }),
   );
+  app.setGlobalPrefix('api');
 
   const config = new DocumentBuilder()
     .setTitle('Internship Quiz API')

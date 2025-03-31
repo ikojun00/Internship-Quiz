@@ -18,13 +18,13 @@ import { UpdateCategoryDto } from './dto/updateCategory.dto';
 import { RolesGuard } from 'src/auth/roles.guard';
 
 @Controller('categories')
-@ApiBearerAuth()
-@UseGuards(AuthGuard)
 export class CategoryController {
   constructor(private readonly categoryService: CategoryService) {}
 
   @Post()
   @ApiOperation({ summary: 'Create a new category (Admin Only)' })
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard)
   @UseGuards(RolesGuard)
   @Roles(Role.ADMIN)
   create(@Body() createCategoryDto: CreateCategoryDto) {
@@ -39,6 +39,8 @@ export class CategoryController {
 
   @Patch(':id')
   @ApiOperation({ summary: 'Update category by ID (Admin Only)' })
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard)
   @UseGuards(RolesGuard)
   @Roles(Role.ADMIN)
   update(
@@ -50,6 +52,8 @@ export class CategoryController {
 
   @Delete(':id')
   @ApiOperation({ summary: 'Delete category by ID (Admin Only)' })
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard)
   @UseGuards(RolesGuard)
   @Roles(Role.ADMIN)
   remove(@Param('id') id: string) {

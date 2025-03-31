@@ -18,12 +18,13 @@ export class QuizService {
     });
   }
 
-  async getAllQuizzes(search?: string) {
+  async getAllQuizzes(search?: string, categoryId?: number) {
     return this.prisma.quiz.findMany({
       where: {
-        title: { contains: search },
+        title: search ? { contains: search } : undefined,
+        categoryId: categoryId ? categoryId : undefined,
       },
-      include: { category: true, questions: true },
+      include: { category: true },
     });
   }
 

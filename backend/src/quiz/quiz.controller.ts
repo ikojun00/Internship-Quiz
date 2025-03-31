@@ -24,14 +24,14 @@ import { RolesGuard } from 'src/auth/roles.guard';
 import { Role } from '@prisma/client';
 
 @ApiTags('Quiz')
-@ApiBearerAuth()
-@UseGuards(AuthGuard)
 @Controller('quiz')
 export class QuizController {
   constructor(private readonly quizService: QuizService) {}
 
   @Post()
   @ApiOperation({ summary: 'Create a new quiz (Admin Only)' })
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard)
   @UseGuards(RolesGuard)
   @Roles(Role.ADMIN)
   create(@Body() createQuizDto: CreateQuizDto) {
@@ -39,20 +39,31 @@ export class QuizController {
   }
 
   @Get()
-  @ApiOperation({ summary: 'Get all quizzes (filtered by title)' })
+  @ApiOperation({
+    summary: 'Get all quizzes (filtered by title and/or category)',
+  })
   @ApiQuery({ name: 'search', required: false })
-  findAll(@Query('search') search?: string) {
-    return this.quizService.getAllQuizzes(search);
+  @ApiQuery({ name: 'category', required: false })
+  findAll(
+    @Query('search') search?: string,
+    @Query('category') category?: string,
+  ) {
+    const categoryId = category ? +category : undefined;
+    return this.quizService.getAllQuizzes(search, categoryId);
   }
 
   @Get(':id')
   @ApiOperation({ summary: 'Get quiz by ID' })
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard)
   findOne(@Param('id') id: string) {
     return this.quizService.getQuizById(+id);
   }
 
   @Patch(':id')
   @ApiOperation({ summary: 'Update quiz by ID (Admin Only)' })
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard)
   @UseGuards(RolesGuard)
   @Roles(Role.ADMIN)
   update(@Param('id') id: string, @Body() updateQuizDto: UpdateQuizDto) {
@@ -61,6 +72,8 @@ export class QuizController {
 
   @Delete(':id')
   @ApiOperation({ summary: 'Delete quiz by ID (Admin Only)' })
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard)
   @UseGuards(RolesGuard)
   @Roles(Role.ADMIN)
   remove(@Param('id') id: string) {

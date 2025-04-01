@@ -15,7 +15,7 @@ export class AuthService {
   async signIn(signInDto: SignInDto): Promise<{ access_token: string }> {
     const user = await this.userService.getUserByUsername(signInDto.username);
     if (!user || !(await bcrypt.compare(signInDto.password, user.password))) {
-      throw new UnauthorizedException('Invalid credentials!');
+      throw new UnauthorizedException('Invalid credentials.');
     }
     const payload = { sub: user.id, username: user.username, role: user.role };
     return {

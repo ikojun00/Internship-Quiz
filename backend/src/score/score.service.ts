@@ -34,7 +34,7 @@ export class ScoreService {
       createScoreDto.quizId,
     );
     if (existingScore) {
-      throw new ForbiddenException('User already has a score for this quiz');
+      throw new ForbiddenException('User already has a score for this quiz.');
     }
 
     return this.prisma.userQuizScore.create({
@@ -47,7 +47,7 @@ export class ScoreService {
 
     if (!existingScore) {
       throw new Error(
-        `Score for userId ${userId} and quizId ${quizId} not found`,
+        `Score for userId ${userId} and quizId ${quizId} not found.`,
       );
     }
 
@@ -102,7 +102,7 @@ export class ScoreService {
     });
 
     if (!userTotal._sum.score) {
-      throw new NotFoundException('User has no scores yet');
+      throw new NotFoundException('User has no scores yet.');
     }
 
     let rank = 1;
@@ -123,6 +123,6 @@ export class ScoreService {
       }
     }
 
-    throw new NotFoundException('User ranking not found');
+    throw new NotFoundException('User ranking not found.');
   }
 }

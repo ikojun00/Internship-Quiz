@@ -19,7 +19,7 @@ export class QuestionService {
       include: { quiz: true },
     });
     if (!question)
-      throw new NotFoundException(`Question with ID ${id} not found`);
+      throw new NotFoundException(`Question with ID ${id} not found.`);
     return question;
   }
 

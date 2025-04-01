@@ -27,7 +27,7 @@ export class CategoryService {
       where: { id },
     });
     if (!category)
-      throw new NotFoundException(`Category with ID ${id} not found`);
+      throw new NotFoundException(`Category with ID ${id} not found.`);
   }
 
   async getCategoryByName(name: string) {
@@ -36,7 +36,7 @@ export class CategoryService {
     });
     if (category)
       throw new ForbiddenException(
-        `Category with name ${name} has already been created`,
+        `Category with name ${name} has already been created.`,
       );
   }
 
@@ -50,6 +50,14 @@ export class CategoryService {
 
   async remove(id: number) {
     await this.getCategoryById(id);
+    const quizzes = await this.prisma.quiz.findMany({
+      where: { categoryId: id },
+    });
+    if (quizzes.length > 0) {
+      throw new ForbiddenException(
+        `Cannot delete category with ID ${id} because it has associated quizzes.`,
+      );
+    }
     return this.prisma.category.delete({
       where: { id },
     });

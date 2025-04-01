@@ -48,6 +48,7 @@ export class UserService {
 
   async deleteUser(id: number) {
     await this.getUserById(id);
+    await this.prisma.userQuizScore.deleteMany({ where: { userId: id } });
     return this.prisma.user.delete({ where: { id } });
   }
 }

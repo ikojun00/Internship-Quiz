@@ -57,7 +57,7 @@ export class ScoreService {
     });
   }
 
-  async getTotalScoresForAllUsers() {
+  async getTotalScores() {
     const scores = await this.prisma.userQuizScore.groupBy({
       by: ['userId'],
       _sum: {

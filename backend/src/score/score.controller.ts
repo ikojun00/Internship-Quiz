@@ -29,6 +29,21 @@ export class ScoreController {
     return this.scoreService.create(createScoreDto);
   }
 
+  @Get('summary')
+  @ApiOperation({ summary: 'Get scores summary (Admin Only)' })
+  @UseGuards(RolesGuard)
+  @Roles(Role.ADMIN)
+  getTotalScores() {
+    return this.scoreService.getTotalScores();
+  }
+
+  @Get('my-rank')
+  @ApiOperation({ summary: 'Get user rank' })
+  getUserRank(@Req() req) {
+    const userId = req.user.sub;
+    return this.scoreService.calculateUserRank(+userId);
+  }
+
   @Get(':quizId')
   @ApiOperation({ summary: 'Get score by quizId' })
   getScore(@Req() req, @Param('quizId') quizId: string) {
@@ -42,21 +57,10 @@ export class ScoreController {
     @Param('quizId') quizId: string,
     @Body() updateScoreDto: UpdateScoreDto,
   ) {
-    return this.scoreService.updateScore(req.user.sub, +quizId, updateScoreDto.score);
-  }
-
-  @Get('summary')
-  @ApiOperation({ summary: 'Get scores summary (Admin Only)' })
-  @UseGuards(RolesGuard)
-  @Roles(Role.ADMIN)
-  getTotalScores() {
-    return this.scoreService.getTotalScoresForAllUsers();
-  }
-
-  @Get('my-rank')
-  @ApiOperation({ summary: 'Get user rank' })
-  getUserRank(@Req() req) {
-    const userId = req.user.sub;
-    return this.scoreService.calculateUserRank(+userId);
+    return this.scoreService.updateScore(
+      req.user.sub,
+      +quizId,
+      updateScoreDto.score,
+    );
   }
 }

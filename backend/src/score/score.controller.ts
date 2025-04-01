@@ -15,6 +15,7 @@ import { CreateScoreDto } from './dto/createScore.dto';
 import { ScoreService } from './score.service';
 import { ApiBearerAuth, ApiOperation } from '@nestjs/swagger';
 import { RolesGuard } from 'src/auth/roles.guard';
+import { UpdateScoreDto } from './dto/updateScore.dto';
 
 @Controller('scores')
 @ApiBearerAuth()
@@ -39,9 +40,9 @@ export class ScoreController {
   updateScore(
     @Req() req,
     @Param('quizId') quizId: string,
-    @Body() score: string,
+    @Body() updateScoreDto: UpdateScoreDto,
   ) {
-    return this.scoreService.updateScore(req.user.sub, +quizId, +score);
+    return this.scoreService.updateScore(req.user.sub, +quizId, updateScoreDto.score);
   }
 
   @Get('summary')

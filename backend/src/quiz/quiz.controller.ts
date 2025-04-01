@@ -31,8 +31,7 @@ export class QuizController {
   @Post()
   @ApiOperation({ summary: 'Create a new quiz (Admin Only)' })
   @ApiBearerAuth()
-  @UseGuards(AuthGuard)
-  @UseGuards(RolesGuard)
+  @UseGuards(AuthGuard, RolesGuard)
   @Roles(Role.ADMIN)
   create(@Body() createQuizDto: CreateQuizDto) {
     return this.quizService.createQuiz(createQuizDto);
@@ -63,8 +62,7 @@ export class QuizController {
   @Patch(':id')
   @ApiOperation({ summary: 'Update quiz by ID (Admin Only)' })
   @ApiBearerAuth()
-  @UseGuards(AuthGuard)
-  @UseGuards(RolesGuard)
+  @UseGuards(AuthGuard, RolesGuard)
   @Roles(Role.ADMIN)
   update(@Param('id') id: string, @Body() updateQuizDto: UpdateQuizDto) {
     return this.quizService.updateQuiz(+id, updateQuizDto);
@@ -73,8 +71,7 @@ export class QuizController {
   @Delete(':id')
   @ApiOperation({ summary: 'Delete quiz by ID (Admin Only)' })
   @ApiBearerAuth()
-  @UseGuards(AuthGuard)
-  @UseGuards(RolesGuard)
+  @UseGuards(AuthGuard, RolesGuard)
   @Roles(Role.ADMIN)
   remove(@Param('id') id: string) {
     return this.quizService.deleteQuiz(+id);

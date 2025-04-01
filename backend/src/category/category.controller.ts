@@ -24,8 +24,7 @@ export class CategoryController {
   @Post()
   @ApiOperation({ summary: 'Create a new category (Admin Only)' })
   @ApiBearerAuth()
-  @UseGuards(AuthGuard)
-  @UseGuards(RolesGuard)
+  @UseGuards(AuthGuard, RolesGuard)
   @Roles(Role.ADMIN)
   create(@Body() createCategoryDto: CreateCategoryDto) {
     return this.categoryService.create(createCategoryDto);
@@ -40,8 +39,7 @@ export class CategoryController {
   @Patch(':id')
   @ApiOperation({ summary: 'Update category by ID (Admin Only)' })
   @ApiBearerAuth()
-  @UseGuards(AuthGuard)
-  @UseGuards(RolesGuard)
+  @UseGuards(AuthGuard, RolesGuard)
   @Roles(Role.ADMIN)
   update(
     @Param('id') id: string,
@@ -53,8 +51,7 @@ export class CategoryController {
   @Delete(':id')
   @ApiOperation({ summary: 'Delete category by ID (Admin Only)' })
   @ApiBearerAuth()
-  @UseGuards(AuthGuard)
-  @UseGuards(RolesGuard)
+  @UseGuards(AuthGuard, RolesGuard)
   @Roles(Role.ADMIN)
   remove(@Param('id') id: string) {
     return this.categoryService.remove(+id);

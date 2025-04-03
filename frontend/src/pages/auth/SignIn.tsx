@@ -7,7 +7,7 @@ import AuthCard from "@/components/auth/AuthCard";
 import AuthFooter from "@/components/auth/AuthFooter";
 import AuthLayout from "@/components/auth/AuthLayout";
 import FormField from "@/components/auth/FormField";
-import PasswordInput from "@/components/auth/PaswordInput";
+import PasswordInput from "@/components/auth/PasswordInput";
 
 type FormData = {
   username: string;

@@ -19,13 +19,32 @@ export class QuizService {
   }
 
   async getAllQuizzes(search?: string, categoryId?: number) {
-    return this.prisma.quiz.findMany({
+    const quizzes = await this.prisma.quiz.findMany({
       where: {
         title: search ? { contains: search } : undefined,
         categoryId: categoryId ? categoryId : undefined,
       },
-      include: { category: true },
+      include: {
+        category: true,
+        questions: {
+          select: {
+            id: true,
+            points: true,
+          },
+        },
+      },
     });
+
+    return quizzes.map((quiz) => ({
+      id: quiz.id,
+      title: quiz.title,
+      category: quiz.category,
+      numberOfQuestions: quiz.questions.length,
+      totalPoints: quiz.questions.reduce(
+        (sum, question) => sum + question.points,
+        0,
+      ),
+    }));
   }
 
   async getQuizById(id: number) {

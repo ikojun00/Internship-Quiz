@@ -23,12 +23,6 @@ import { UpdateScoreDto } from './dto/updateScore.dto';
 export class ScoreController {
   constructor(private readonly scoreService: ScoreService) {}
 
-  @Post()
-  @ApiOperation({ summary: 'Create a new score' })
-  create(@Body() createScoreDto: CreateScoreDto) {
-    return this.scoreService.create(createScoreDto);
-  }
-
   @Get('summary')
   @ApiOperation({ summary: 'Get scores summary (Admin Only)' })
   @UseGuards(RolesGuard)
@@ -48,6 +42,20 @@ export class ScoreController {
   @ApiOperation({ summary: 'Get score by quizId' })
   getScore(@Req() req, @Param('quizId') quizId: string) {
     return this.scoreService.getScore(req.user.sub, +quizId);
+  }
+
+  @Post(':quizId')
+  @ApiOperation({ summary: 'Create a new score' })
+  createScore(
+    @Req() req,
+    @Param('quizId') quizId: string,
+    @Body() createScoreDto: CreateScoreDto,
+  ) {
+    return this.scoreService.createScore(
+      req.user.sub,
+      +quizId,
+      createScoreDto.score,
+    );
   }
 
   @Patch(':quizId')

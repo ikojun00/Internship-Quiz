@@ -1,8 +1,3 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { IsInt } from 'class-validator';
+import { CreateScoreDto } from './createScore.dto';
 
-export class UpdateScoreDto {
-  @ApiProperty()
-  @IsInt()
-  score: number;
-}
+export class UpdateScoreDto extends CreateScoreDto {}

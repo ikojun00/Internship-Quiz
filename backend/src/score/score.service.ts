@@ -28,17 +28,18 @@ export class ScoreService {
     });
   }
 
-  async create(createScoreDto: CreateScoreDto) {
-    const existingScore = await this.getScore(
-      createScoreDto.userId,
-      createScoreDto.quizId,
-    );
+  async createScore(userId: number, quizId: number, score: number) {
+    const existingScore = await this.getScore(userId, quizId);
     if (existingScore) {
       throw new ForbiddenException('User already has a score for this quiz.');
     }
 
     return this.prisma.userQuizScore.create({
-      data: createScoreDto,
+      data: {
+        userId,
+        quizId,
+        score,
+      },
     });
   }
 

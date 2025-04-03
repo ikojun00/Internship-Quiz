@@ -13,7 +13,6 @@ export class CreateQuestionDto {
   type: QuestionType;
 
   @ApiProperty()
-  @IsNotEmpty()
   @IsString()
   options: string;
 

@@ -7,6 +7,7 @@ import { Category } from "@/types";
 import LoadingSpinner from "../../LoadingSpinner";
 import EmptyState from "../../EmptyState";
 import CategoryList from "./CategoryList";
+import { toast } from "sonner";
 
 const ManageCategories: React.FC = () => {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -46,6 +47,9 @@ const ManageCategories: React.FC = () => {
       await categoryService.delete(id);
       fetchCategories();
     } catch (error) {
+      if ((error as any).response?.status === 403) {
+        toast.error((error as any).response.data.message);
+      }
       console.error("Error deleting category:", error);
     }
   };

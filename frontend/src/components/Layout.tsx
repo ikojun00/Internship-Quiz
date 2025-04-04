@@ -17,7 +17,7 @@ export function Layout() {
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
-      <main className="max-w-7xl flex-1 w-full mx-auto mt-8 p-4">
+      <main className="max-w-7xl flex-1 w-full mx-auto my-8 p-4">
         <Outlet />
       </main>
       <footer className="py-4 border-t text-center text-sm text-gray-500">

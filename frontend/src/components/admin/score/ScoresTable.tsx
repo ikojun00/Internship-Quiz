@@ -13,7 +13,6 @@ interface ScoresTableProps {
 }
 
 const ScoresTable: React.FC<ScoresTableProps> = ({ scores }) => {
-  console.log("ScoresTable scores:", scores);
   return (
     <div className="overflow-x-auto">
       <table className="w-full border-collapse">

@@ -34,7 +34,7 @@ export class UserService {
       where: { username },
     });
     if (user)
-      throw new UnauthorizedException(`Username ${username} is already taken`);
+      throw new UnauthorizedException(`Username ${username} is already taken.`);
   }
 
   async updateUser(id: number, updateUserDto: UpdateUserDto) {

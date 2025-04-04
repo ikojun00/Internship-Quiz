@@ -170,9 +170,9 @@ const ManageQuestions: React.FC = () => {
   return (
     <Card>
       <CardHeader>
-        <div className="flex justify-between items-center">
+        <div className="flex flex-col gap-4 md:flex-row justify-between items-center">
           <CardTitle>Questions</CardTitle>
-          <div className="flex gap-2">
+          <div className="flex flex-col md:flex-row gap-2">
             <QuizSelector
               quizzes={quizzes}
               selectedQuiz={selectedQuiz}

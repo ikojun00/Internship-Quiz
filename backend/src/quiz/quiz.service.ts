@@ -21,7 +21,7 @@ export class QuizService {
   async getAllQuizzes(search?: string, categoryId?: number) {
     const quizzes = await this.prisma.quiz.findMany({
       where: {
-        title: search ? { contains: search } : undefined,
+        title: search ? { contains: search, mode: 'insensitive' } : undefined,
         categoryId: categoryId ? categoryId : undefined,
       },
       include: {

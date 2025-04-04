@@ -5,9 +5,9 @@ import { Quiz } from "@/types";
 import { calculateQuizScore } from "@/utils/quizCalculator";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import ErrorMessage from "@/components/ErrorMessage";
-import QuizResults from "@/components/quiz/QuizResults";
-import QuizHeader from "@/components/quiz/QuizHeader";
-import QuizQuestion from "@/components/quiz/QuizQuestion";
+import QuizResults from "@/components/user/quiz/QuizResults";
+import QuizHeader from "@/components/user/quiz/QuizHeader";
+import QuizQuestion from "@/components/user/quiz/QuizQuestion";
 
 const QuizPage: React.FC = () => {
   const { quizId } = useParams<{ quizId: string }>();
@@ -29,6 +29,14 @@ const QuizPage: React.FC = () => {
       setIsLoading(true);
       try {
         const data = await quizService.getById(parseInt(quizId));
+
+        if (data.questions.length < 5) {
+          setError(
+            "This quiz has fewer than 5 questions and cannot be played."
+          );
+          return;
+        }
+
         setQuiz(data);
       } catch (error) {
         console.error("Error fetching quiz:", error);
@@ -67,8 +75,9 @@ const QuizPage: React.FC = () => {
       const result = calculateQuizScore(quiz, answers);
       setScore(result);
       setSubmitted(true);
-
-      await scoreService.updateScore(quiz.id, result.score);
+      (await scoreService.getScore(quiz.id))
+        ? await scoreService.updateScore(quiz.id, result.score)
+        : await scoreService.createScore(quiz.id, result.score);
     } catch (error) {
       console.error("Error calculating or updating score:", error);
       setError("Failed to calculate or update your score. Please try again.");

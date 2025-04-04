@@ -2,9 +2,8 @@ import { apiClient } from "./api";
 
 export interface QuizData {
   id?: number;
-  title?: string;
-  questions?: any[];
-  categoryId?: number;
+  title: string;
+  categoryId: number;
 }
 
 export const quizService = {
@@ -35,7 +34,7 @@ export const quizService = {
   },
 
   update: async (id: number, quizData: QuizData) => {
-    const response = await apiClient.put(`/api/quiz/${id}`, quizData);
+    const response = await apiClient.patch(`/api/quiz/${id}`, quizData);
     return response.data;
   },
 

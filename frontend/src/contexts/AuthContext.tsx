@@ -7,12 +7,7 @@ import React, {
 } from "react";
 import axios from "axios";
 import { toast } from "sonner";
-
-type User = {
-  id: number;
-  username: string;
-  role: "USER" | "ADMIN";
-};
+import { User } from "@/types";
 
 type AuthContextType = {
   user: User | null;

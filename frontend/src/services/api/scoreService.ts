@@ -17,6 +17,11 @@ export const scoreService = {
     return response.data;
   },
 
+  createScore: async (quizId: number, score: number) => {
+    const response = await apiClient.post(`/api/scores/${quizId}`, { score });
+    return response.data;
+  },
+
   updateScore: async (quizId: number, score: number) => {
     const response = await apiClient.patch(`/api/scores/${quizId}`, { score });
     return response.data;

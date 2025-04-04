@@ -21,16 +21,20 @@ export const useQuizzes = (
           categoryService.getAll(),
         ]);
 
+        const filteredQuizzes = quizzesData.filter(
+          (quiz: Quiz) => quiz.numberOfQuestions >= 5
+        );
+
         let userScores = [];
         if (user?.id) {
           userScores = await Promise.all(
-            quizzesData.map((quiz: Quiz) =>
+            filteredQuizzes.map((quiz: Quiz) =>
               scoreService.getScore(quiz.id).catch(() => null)
             )
           );
         }
 
-        const quizzesWithScores = quizzesData.map(
+        const quizzesWithScores = filteredQuizzes.map(
           (quiz: Quiz, index: number) => ({
             ...quiz,
             userScore: userScores[index],

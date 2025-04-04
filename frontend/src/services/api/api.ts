@@ -18,3 +18,4 @@ export const apiClient = axios;
 export * from "./quizService";
 export * from "./categoryService";
 export * from "./scoreService";
+export * from "./questionService";

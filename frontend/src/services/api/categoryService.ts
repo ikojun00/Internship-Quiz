@@ -17,7 +17,7 @@ export const categoryService = {
   },
 
   update: async (id: number, name: string) => {
-    const response = await apiClient.put(`/api/categories/${id}`, { name });
+    const response = await apiClient.patch(`/api/categories/${id}`, { name });
     return response.data;
   },
 

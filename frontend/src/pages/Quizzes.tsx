@@ -2,8 +2,8 @@ import React from "react";
 import { useSearchParams } from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import { useQuizzes } from "@/services/hooks/useQuizzes";
-import { CategoryFilter } from "@/components/quizzes/CategoryFilter";
-import { QuizGrid } from "@/components/quizzes/QuizGrid";
+import { CategoryFilter } from "@/components/user/quizzes/CategoryFilter";
+import { QuizGrid } from "@/components/user/quizzes/QuizGrid";
 
 const QuizzesPage: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();

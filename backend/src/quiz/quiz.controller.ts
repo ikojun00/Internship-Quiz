@@ -8,6 +8,7 @@ import {
   Delete,
   Query,
   UseGuards,
+  ParseIntPipe,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -55,8 +56,8 @@ export class QuizController {
   @ApiOperation({ summary: 'Get quiz by ID' })
   @ApiBearerAuth()
   @UseGuards(AuthGuard)
-  findOne(@Param('id') id: string) {
-    return this.quizService.getQuizById(+id);
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.quizService.getQuizById(id);
   }
 
   @Patch(':id')
@@ -64,8 +65,11 @@ export class QuizController {
   @ApiBearerAuth()
   @UseGuards(AuthGuard, RolesGuard)
   @Roles(Role.ADMIN)
-  update(@Param('id') id: string, @Body() updateQuizDto: UpdateQuizDto) {
-    return this.quizService.updateQuiz(+id, updateQuizDto);
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateQuizDto: UpdateQuizDto,
+  ) {
+    return this.quizService.updateQuiz(id, updateQuizDto);
   }
 
   @Delete(':id')
@@ -73,7 +77,7 @@ export class QuizController {
   @ApiBearerAuth()
   @UseGuards(AuthGuard, RolesGuard)
   @Roles(Role.ADMIN)
-  remove(@Param('id') id: string) {
-    return this.quizService.deleteQuiz(+id);
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.quizService.deleteQuiz(id);
   }
 }

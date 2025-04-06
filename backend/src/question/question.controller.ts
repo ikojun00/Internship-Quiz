@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   UseGuards,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { QuestionService } from './question.service';
 import { AuthGuard } from '../auth/auth.guard';
@@ -33,8 +34,8 @@ export class QuestionController {
 
   @Get(':id')
   @ApiOperation({ summary: 'Get question by ID' })
-  findOne(@Param('id') id: string) {
-    return this.questionService.findOne(+id);
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.questionService.findOne(id);
   }
 
   @Patch(':id')
@@ -42,17 +43,17 @@ export class QuestionController {
   @UseGuards(RolesGuard)
   @Roles(Role.ADMIN)
   update(
-    @Param('id') id: string,
+    @Param('id', ParseIntPipe) id: number,
     @Body() updateQuestionDto: UpdateQuestionDto,
   ) {
-    return this.questionService.update(+id, updateQuestionDto);
+    return this.questionService.update(id, updateQuestionDto);
   }
 
   @Delete(':id')
   @ApiOperation({ summary: 'Delete question by ID (Admin Only)' })
   @UseGuards(RolesGuard)
   @Roles(Role.ADMIN)
-  remove(@Param('id') id: string) {
-    return this.questionService.remove(+id);
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.questionService.remove(id);
   }
 }

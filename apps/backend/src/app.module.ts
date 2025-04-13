@@ -15,9 +15,14 @@ import { ScoreController } from './score/score.controller';
 import { ScoreModule } from './score/score.module';
 import { CategoryService } from './category/category.service';
 import { UserService } from './user/user.service';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', '..', '..', 'frontend', 'dist'),
+    }),
     UserModule,
     QuizModule,
     AuthModule,

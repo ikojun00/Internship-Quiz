@@ -25,13 +25,13 @@ Required variables for `.env` file:
 #### Run database migrations
 
 ```
-npm prisma migrate dev
+npx prisma migrate dev
 ```
 
 #### Run database seed
 
 ```
-npm prisma db seed
+npx prisma db seed
 ```
 
 #### Run app

@@ -1,17 +1,43 @@
-# Quiz Application
+<h1 align="center">Quiz Application</h1>
 
-This is a full-stack quiz application built with NestJS for the backend and React for the frontend. The application allows users to take quizzes, track scores and manage quizzes and questions through an admin dashboard.
+## Development
 
-## Features
+#### Dependencies
 
-### User Features
+- Node.js >=18 and npm
+- PostgreSQL >= 15
 
-- **Sign Up & Login**: Users can register and log in to the application.
-- **Take Quizzes**: Users can attempt quizzes and view their scores.
+#### Install dependencies
 
-### Admin Features
+```
+npm install
+```
 
-- **Manage Quizzes**: Admins can create, update and delete quizzes.
-- **Manage Questions**: Admins can add, edit and delete questions for quizzes.
-- **Manage Categories**: Admins can create and manage quiz categories.
-- **View User Scores**: Admins can view scores for all users.
+#### Setup environment
+
+Create `.env` file in backend app.
+
+Required variables for `.env` file:
+
+- `JWT_SECRET`
+- `DATABASE_URL`
+
+#### Run database migrations
+
+```
+npm prisma migrate dev
+```
+
+#### Run database seed
+
+```
+npm prisma db seed
+```
+
+#### Run app
+
+```
+npm run dev
+```
+
+App is now accessible on <http://localhost:5173/>. API routes are prefixed with `/api`.

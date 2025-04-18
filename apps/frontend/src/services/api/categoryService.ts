@@ -1,9 +1,4 @@
-import { apiClient } from "./api";
-
-export interface Category {
-  id?: number;
-  name: string;
-}
+import { apiClient } from "./base";
 
 export const categoryService = {
   getAll: async () => {

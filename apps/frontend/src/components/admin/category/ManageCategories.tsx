@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { categoryService } from "@/services/api/api";
+import { categoryService } from "@/services/api/base";
 import { Category } from "@/types";
 import LoadingSpinner from "../../LoadingSpinner";
 import EmptyState from "../../EmptyState";

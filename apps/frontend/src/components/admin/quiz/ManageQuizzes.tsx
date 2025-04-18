@@ -19,7 +19,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { quizService, categoryService, QuizData } from "@/services/api/api";
+import { quizService, categoryService, QuizData } from "@/services/api/base";
 import { Category } from "@/types";
 import LoadingSpinner from "../../LoadingSpinner";
 import EmptyState from "../../EmptyState";
@@ -201,8 +201,8 @@ const ManageQuizzes: React.FC = () => {
                   ? "Updating..."
                   : "Creating..."
                 : editMode
-                ? "Update Quiz"
-                : "Create Quiz"}
+                  ? "Update Quiz"
+                  : "Create Quiz"}
             </Button>
           </DialogFooter>
         </DialogContent>

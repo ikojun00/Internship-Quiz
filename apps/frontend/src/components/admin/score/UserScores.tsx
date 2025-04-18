@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { scoreService } from "@/services/api/api";
+import { scoreService } from "@/services/api/base";
 import LoadingSpinner from "../../LoadingSpinner";
 import EmptyState from "../../EmptyState";
 import ScoresTable from "./ScoresTable";

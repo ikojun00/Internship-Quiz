@@ -7,6 +7,7 @@ import {
   Param,
   Req,
   Patch,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { AuthGuard } from '../auth/auth.guard';
 import { Roles } from '../auth/roles.decorator';
@@ -32,7 +33,7 @@ export class ScoreController {
   }
 
   @Get('my-rank')
-  @ApiOperation({ summary: 'Get user rank' })
+  @ApiOperation({ summary: 'Get user rank and total players' })
   getUserRank(@Req() req) {
     const userId = req.user.sub;
     return this.scoreService.calculateUserRank(+userId);
@@ -40,20 +41,20 @@ export class ScoreController {
 
   @Get(':quizId')
   @ApiOperation({ summary: 'Get score by quizId' })
-  getScore(@Req() req, @Param('quizId') quizId: string) {
-    return this.scoreService.getScore(req.user.sub, +quizId);
+  getScore(@Req() req, @Param('quizId', ParseIntPipe) quizId: number) {
+    return this.scoreService.getScore(req.user.sub, quizId);
   }
 
   @Post(':quizId')
   @ApiOperation({ summary: 'Create a new score' })
   createScore(
     @Req() req,
-    @Param('quizId') quizId: string,
+    @Param('quizId', ParseIntPipe) quizId: number,
     @Body() createScoreDto: CreateScoreDto,
   ) {
     return this.scoreService.createScore(
       req.user.sub,
-      +quizId,
+      quizId,
       createScoreDto.score,
     );
   }
@@ -62,12 +63,12 @@ export class ScoreController {
   @ApiOperation({ summary: 'Update score by quizId' })
   updateScore(
     @Req() req,
-    @Param('quizId') quizId: string,
+    @Param('quizId', ParseIntPipe) quizId: number,
     @Body() updateScoreDto: UpdateScoreDto,
   ) {
     return this.scoreService.updateScore(
       req.user.sub,
-      +quizId,
+      quizId,
       updateScoreDto.score,
     );
   }

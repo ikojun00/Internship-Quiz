@@ -1,4 +1,4 @@
-import { apiClient } from "./api";
+import { apiClient } from "./base";
 
 export interface QuizData {
   id?: number;

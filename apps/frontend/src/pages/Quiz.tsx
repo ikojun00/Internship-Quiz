@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { quizService, scoreService } from "@/services/api/api";
+import { quizService, scoreService } from "@/services/api/base";
 import { Quiz } from "@/types";
 import { calculateQuizScore } from "@/utils/quizCalculator";
 import LoadingSpinner from "@/components/LoadingSpinner";

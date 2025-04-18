@@ -71,19 +71,29 @@ export class ScoreService {
       },
     });
 
+    const validScores = scores.filter((score) => score._sum.score !== null);
+
     return await Promise.all(
-      scores.map(async (score) => {
-        const user = await this.userService.getUserById(score.userId);
-        return {
-          user,
-          totalScore: score._sum.score,
-        };
+      validScores.map(async (score) => {
+        try {
+          const user = await this.userService.getUserById(score.userId);
+          return {
+            user,
+            totalScore: score._sum.score,
+          };
+        } catch (error) {
+          console.error(
+            `User not found for score entry: userId=${score.userId}`,
+            error,
+          );
+          return null;
+        }
       }),
-    );
+    ).then((results) => results.filter((result) => result !== null));
   }
 
   async calculateUserRank(userId: number) {
-    const allScores = await this.prisma.userQuizScore.groupBy({
+    const allGroupedScores = await this.prisma.userQuizScore.groupBy({
       by: ['userId'],
       _sum: {
         score: true,
@@ -95,35 +105,42 @@ export class ScoreService {
       },
     });
 
-    const userTotal = await this.prisma.userQuizScore.aggregate({
-      where: { userId },
-      _sum: {
-        score: true,
-      },
-    });
+    const rankedPlayers = allGroupedScores.filter((s) => s._sum.score !== null);
+    const totalPlayers = rankedPlayers.length;
 
-    if (!userTotal._sum.score) {
-      throw new NotFoundException('User has no scores yet.');
-    }
+    let userRank = -1;
+    let userTotalScore = 0;
+    let currentRank = 0;
+    let lastScore = Infinity;
 
-    let rank = 1;
-    let previousScore = Infinity;
+    for (let i = 0; i < rankedPlayers.length; i++) {
+      const entry = rankedPlayers[i];
+      const currentScore = entry._sum.score;
 
-    for (const [index, score] of allScores.entries()) {
-      if (score._sum.score < previousScore) {
-        rank = index + 1;
-        previousScore = score._sum.score;
+      if (currentScore < lastScore) {
+        currentRank = i + 1;
+        lastScore = currentScore;
       }
 
-      if (score.userId === userId) {
-        return {
-          userId,
-          totalScore: userTotal._sum.score,
-          rank,
-        };
+      if (entry.userId === userId) {
+        userRank = currentRank;
+        userTotalScore = currentScore;
+        break;
       }
     }
 
-    throw new NotFoundException('User ranking not found.');
+    if (userRank === -1) {
+      return {
+        rank: totalPlayers + 1,
+        totalScore: 0,
+        totalPlayers: totalPlayers,
+      };
+    }
+
+    return {
+      rank: userRank,
+      totalScore: userTotalScore,
+      totalPlayers: totalPlayers,
+    };
   }
 }

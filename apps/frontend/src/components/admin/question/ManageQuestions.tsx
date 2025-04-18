@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { quizService, questionService } from "@/services/api/api";
+import { quizService, questionService } from "@/services/api/base";
 import { Question, Quiz } from "@/types";
 
 import {
@@ -240,8 +240,8 @@ const ManageQuestions: React.FC = () => {
                   ? "Updating..."
                   : "Creating..."
                 : editMode
-                ? "Update Question"
-                : "Create Question"}
+                  ? "Update Question"
+                  : "Create Question"}
             </Button>
           </DialogFooter>
         </DialogContent>

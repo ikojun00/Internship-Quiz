@@ -1,4 +1,4 @@
-import { apiClient } from "./api";
+import { apiClient } from "./base";
 
 export interface Score {
   quizId: number;
@@ -9,6 +9,7 @@ export interface Score {
 export interface UserRanking {
   rank: number;
   totalScore: number;
+  totalPlayers: number;
 }
 
 export const scoreService = {
@@ -32,7 +33,7 @@ export const scoreService = {
     return response.data;
   },
 
-  getUserRanking: async () => {
+  getUserRanking: async (): Promise<UserRanking> => {
     const response = await apiClient.get("/api/scores/my-rank");
     return response.data;
   },

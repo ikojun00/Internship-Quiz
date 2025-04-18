@@ -14,10 +14,7 @@ export const questionService = {
     return response.data;
   },
 
-  update: async (
-    id: number,
-    question: Question
-  ): Promise<Question> => {
+  update: async (id: number, question: Question): Promise<Question> => {
     const response = await axios.patch(`${BASE_URL}/${id}`, question);
     return response.data;
   },

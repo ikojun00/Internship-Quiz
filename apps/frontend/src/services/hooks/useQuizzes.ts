@@ -1,5 +1,9 @@
 import { useState, useEffect } from "react";
-import { quizService, categoryService, scoreService } from "@/services/api/api";
+import {
+  quizService,
+  categoryService,
+  scoreService,
+} from "@/services/api/base";
 import { useAuth } from "@/contexts/AuthContext";
 import { Category, Quiz } from "@/types";
 

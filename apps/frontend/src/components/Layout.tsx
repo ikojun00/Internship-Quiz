@@ -20,7 +20,7 @@ export function Layout() {
       <main className="max-w-7xl flex-1 w-full mx-auto my-8 p-4">
         <Outlet />
       </main>
-      <footer className="py-4 border-t text-center text-sm text-gray-500">
+      <footer className="py-4 border-t text-center text-sm text-muted-foreground">
         <div className="container mx-auto">
           © {new Date().getFullYear()} Quiz App - All rights reserved
         </div>

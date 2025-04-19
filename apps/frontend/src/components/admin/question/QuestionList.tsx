@@ -24,10 +24,7 @@ const QuestionList: React.FC<QuestionListProps> = ({
   return (
     <div className="space-y-4">
       {questions.map((question) => (
-        <div
-          key={question.id}
-          className="p-4 border rounded-lg hover:bg-gray-50"
-        >
+        <div key={question.id} className="p-4 border rounded-lg">
           <div className="flex justify-between items-start mb-2">
             <div className="flex gap-2 items-center">
               <span className="font-semibold">{question.type}</span>
@@ -53,7 +50,7 @@ const QuestionList: React.FC<QuestionListProps> = ({
           <p className="text-lg font-medium mb-2">{question.text}</p>
           {question.type === "ABC" && (
             <div className="mt-2">
-              <p className="text-sm text-gray-500 mb-1">Options:</p>
+              <p className="text-sm text-muted-foreground mb-1">Options:</p>
               <div className="grid grid-cols-2 gap-2">
                 {tryParseJson(question.options, []).map(
                   (option: string, index: number) => (
@@ -61,8 +58,8 @@ const QuestionList: React.FC<QuestionListProps> = ({
                       key={index}
                       className={`p-2 rounded border ${
                         question.correctAnswer === String(index)
-                          ? "border-green-500 bg-green-50"
-                          : "border-gray-200"
+                          ? "border-green-500"
+                          : "border-border"
                       }`}
                     >
                       {option}
@@ -77,7 +74,7 @@ const QuestionList: React.FC<QuestionListProps> = ({
           )}
           {question.type !== "ABC" && (
             <div className="mt-2">
-              <p className="text-sm text-gray-500">
+              <p className="text-sm text-muted-foreground">
                 Answer: {question.correctAnswer}
               </p>
             </div>

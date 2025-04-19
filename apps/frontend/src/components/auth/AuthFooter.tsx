@@ -12,11 +12,11 @@ const AuthFooter: React.FC<AuthFooterProps> = ({
   onLinkClick,
 }) => {
   return (
-    <p className="text-sm text-center text-gray-500">
+    <p className="text-sm text-center text-muted-foreground">
       {prompt}{" "}
       <a
         onClick={onLinkClick}
-        className="text-blue-600 hover:underline cursor-pointer"
+        className="text-sidebar-primary hover:underline cursor-pointer"
       >
         {linkText}
       </a>

@@ -23,7 +23,7 @@ const QuizTable: React.FC<QuizTableProps> = ({ quizzes, onEdit, onDelete }) => {
         </thead>
         <tbody>
           {quizzes.map((quiz) => (
-            <tr key={quiz.id} className="border-b hover:bg-gray-50">
+            <tr key={quiz.id} className="border-b">
               <td className="py-3 px-4">{quiz.id}</td>
               <td className="py-3 px-4">{quiz.title}</td>
               <td className="py-3 px-4">{quiz.category.name}</td>

@@ -57,7 +57,7 @@ const UserRank: React.FC<UserRankProps> = ({ isOpen, onClose }) => {
           {isLoading ? (
             <LoadingSpinner />
           ) : error ? (
-            <p className="text-red-500 text-center">{error}</p>
+            <p className="text-destructive text-center">{error}</p>
           ) : rankData ? (
             <div className="grid grid-cols-3 gap-4 text-center">
               <div>

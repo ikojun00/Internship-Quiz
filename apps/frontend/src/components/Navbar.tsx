@@ -10,11 +10,19 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
-import { LogOut, UserCircle, BarChartHorizontal } from "lucide-react";
+import {
+  LogOut,
+  UserCircle,
+  BarChartHorizontal,
+  Moon,
+  Sun,
+} from "lucide-react";
+import { useTheme } from "@/contexts/ThemeContext";
 
 export function Navbar() {
   const { user, logout } = useAuth();
   const [isRankModalOpen, setIsRankModalOpen] = useState(false);
+  const { theme, toggleTheme } = useTheme();
 
   const handleOpenRankModal = () => {
     setIsRankModalOpen(true);
@@ -31,6 +39,14 @@ export function Navbar() {
           </div>
 
           <div className="flex items-center gap-4">
+            <Button variant="ghost" size="icon" onClick={toggleTheme}>
+              {theme === "light" ? (
+                <Moon className="h-5 w-5" />
+              ) : (
+                <Sun className="h-5 w-5" />
+              )}
+              <span className="sr-only">Toggle theme</span>
+            </Button>
             {user ? (
               <NavigationMenu className="[&_div.absolute]:-left-[8rem]">
                 <NavigationMenuList>
@@ -54,7 +70,7 @@ export function Navbar() {
                         </Button>
                         <Button
                           variant="ghost"
-                          className="w-full justify-start px-2 py-1.5 text-red-600 hover:text-red-600 hover:bg-red-50"
+                          className="w-full justify-start px-2 py-1.5 text-destructive hover:text-destructive hover:bg-destructive/10"
                           onClick={logout}
                         >
                           <LogOut className="mr-2 h-4 w-4" />

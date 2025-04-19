@@ -5,7 +5,7 @@ interface EmptyStateProps {
 }
 
 const EmptyState: React.FC<EmptyStateProps> = ({ message }) => {
-  return <p className="text-center py-6 text-gray-500">{message}</p>;
+  return <p className="text-center py-6 text-muted-foreground">{message}</p>;
 };
 
 export default EmptyState;

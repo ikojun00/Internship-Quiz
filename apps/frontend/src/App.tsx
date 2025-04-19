@@ -8,8 +8,8 @@ import Quizzes from "./pages/Quizzes";
 import Quiz from "./pages/Quiz";
 import AdminDashboard from "./pages/AdminDashboard";
 import NotFound from "./pages/NotFound";
-
 import { ReactNode } from "react";
+import { ThemeProvider } from "./contexts/ThemeContext";
 
 const ProtectedRoute = ({
   children,
@@ -47,40 +47,42 @@ const App = () => {
   return (
     <BrowserRouter>
       <AuthProvider>
-        <Routes>
-          <Route path="/signin" element={<SignIn />} />
-          <Route path="/signup" element={<SignUp />} />
+        <ThemeProvider defaultTheme="light" storageKey="theme">
+          <Routes>
+            <Route path="/signin" element={<SignIn />} />
+            <Route path="/signup" element={<SignUp />} />
 
-          <Route element={<Layout />}>
-            <Route
-              path="/"
-              element={
-                <ProtectedRoute>
-                  <RedirectBasedOnRole />
-                </ProtectedRoute>
-              }
-            />
-            <Route path="/quizzes" element={<Quizzes />} />
-            <Route
-              path="/quizzes/:quizId"
-              element={
-                <ProtectedRoute>
-                  <Quiz />
-                </ProtectedRoute>
-              }
-            />
+            <Route element={<Layout />}>
+              <Route
+                path="/"
+                element={
+                  <ProtectedRoute>
+                    <RedirectBasedOnRole />
+                  </ProtectedRoute>
+                }
+              />
+              <Route path="/quizzes" element={<Quizzes />} />
+              <Route
+                path="/quizzes/:quizId"
+                element={
+                  <ProtectedRoute>
+                    <Quiz />
+                  </ProtectedRoute>
+                }
+              />
 
-            <Route
-              path="/admin/*"
-              element={
-                <ProtectedRoute requireAdmin={true}>
-                  <AdminDashboard />
-                </ProtectedRoute>
-              }
-            />
-            <Route path="*" element={<NotFound />} />
-          </Route>
-        </Routes>
+              <Route
+                path="/admin/*"
+                element={
+                  <ProtectedRoute requireAdmin={true}>
+                    <AdminDashboard />
+                  </ProtectedRoute>
+                }
+              />
+              <Route path="*" element={<NotFound />} />
+            </Route>
+          </Routes>
+        </ThemeProvider>
       </AuthProvider>
     </BrowserRouter>
   );

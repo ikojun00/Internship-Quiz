@@ -24,7 +24,7 @@ export const QuizGrid: React.FC<QuizGridProps> = ({
   if (quizzes.length === 0) {
     return (
       <div className="text-center py-12">
-        <p className="text-lg text-gray-500">No quizzes found</p>
+        <p className="text-lg text-muted-foreground">No quizzes found</p>
         {(searchQuery || selectedCategoryId) && (
           <Button variant="link" onClick={clearFilters} className="mt-2">
             Clear filters

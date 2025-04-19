@@ -18,13 +18,13 @@ const QuizHeader: React.FC<QuizHeaderProps> = ({
   return (
     <div className="mb-8">
       <h1 className="text-2xl font-bold mb-2">{title}</h1>
-      <div className="flex items-center justify-between text-sm text-gray-500 mb-2">
+      <div className="flex items-center justify-between text-sm text-muted-foreground mb-2">
         <span>{category}</span>
         <span>
           Question {currentQuestion} of {totalQuestions}
         </span>
       </div>
-      <div className="w-full bg-gray-200 rounded-full h-2.5">
+      <div className="w-full bg-accent rounded-full h-2.5">
         <div
           className="bg-primary h-2.5 rounded-full"
           style={{ width: `${progress}%` }}

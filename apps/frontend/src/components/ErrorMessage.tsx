@@ -9,7 +9,7 @@ type ErrorMessageProps = {
 const ErrorMessage: React.FC<ErrorMessageProps> = ({ message, onBack }) => {
   return (
     <div className="text-center py-12">
-      <p className="text-lg text-red-500 mb-4">{message}</p>
+      <p className="text-lg text-destructive mb-4">{message}</p>
       <Button onClick={onBack}>Back to Quizzes</Button>
     </div>
   );

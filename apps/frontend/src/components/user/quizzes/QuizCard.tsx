@@ -38,7 +38,7 @@ export const QuizCard: React.FC<QuizCardProps> = ({ quiz }) => {
   return (
     <>
       <Card className="overflow-hidden hover:shadow-md transition-shadow duration-300 relative">
-        <div className="bg-gray-100 h-40 flex items-center justify-center">
+        <div className="bg-secondary h-40 flex items-center justify-center">
           {getCategoryIcon()}
         </div>
         {quiz.userScore && (
@@ -48,8 +48,8 @@ export const QuizCard: React.FC<QuizCardProps> = ({ quiz }) => {
         )}
         <CardContent className="p-4">
           <h3 className="text-xl font-semibold mb-2">{quiz.title}</h3>
-          <p className="text-sm text-gray-500 mb-4">{quiz.category.name}</p>
-          <p className="text-sm text-gray-500 mb-4">
+          <p className="text-sm text-muted-foreground mb-4">{quiz.category.name}</p>
+          <p className="text-sm text-muted-foreground mb-4">
             {quiz.numberOfQuestions} Questions
           </p>
           <Button className="w-full" onClick={handleStartQuiz}>

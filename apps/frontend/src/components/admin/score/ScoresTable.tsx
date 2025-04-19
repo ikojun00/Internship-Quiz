@@ -24,7 +24,7 @@ const ScoresTable: React.FC<ScoresTableProps> = ({ scores }) => {
         </thead>
         <tbody>
           {scores.map((score) => (
-            <tr key={score.user.id} className="border-b hover:bg-gray-50">
+            <tr key={score.user.id} className="border-b">
               <td className="py-3 px-4">{score.user.username}</td>
               <td className="py-3 px-4 text-right">{score.totalScore}</td>
             </tr>

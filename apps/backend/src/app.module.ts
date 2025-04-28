@@ -22,7 +22,6 @@ import { join } from 'path';
   imports: [
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', '..', '..', 'frontend', 'dist'),
-      exclude: ['/api*'],
     }),
     UserModule,
     QuizModule,

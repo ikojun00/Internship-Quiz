@@ -15,7 +15,7 @@ import { Role } from '@prisma/client';
 import { CreateScoreDto } from './dto/createScore.dto';
 import { ScoreService } from './score.service';
 import { ApiBearerAuth, ApiOperation } from '@nestjs/swagger';
-import { RolesGuard } from 'src/auth/roles.guard';
+import { RolesGuard } from '../auth/roles.guard';
 import { UpdateScoreDto } from './dto/updateScore.dto';
 
 @Controller('scores')

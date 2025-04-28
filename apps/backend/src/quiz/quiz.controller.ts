@@ -19,9 +19,9 @@ import {
 import { QuizService } from './quiz.service';
 import { CreateQuizDto } from './dto/createQuiz.dto';
 import { UpdateQuizDto } from './dto/updateQuiz.dto';
-import { AuthGuard } from 'src/auth/auth.guard';
-import { Roles } from 'src/auth/roles.decorator';
-import { RolesGuard } from 'src/auth/roles.guard';
+import { AuthGuard } from '../auth/auth.guard';
+import { Roles } from '../auth/roles.decorator';
+import { RolesGuard } from '../auth/roles.guard';
 import { Role } from '@prisma/client';
 
 @ApiTags('Quiz')

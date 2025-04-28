@@ -4,9 +4,8 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
-import { CreateScoreDto } from './dto/createScore.dto';
-import { UserService } from 'src/user/user.service';
-import { QuizService } from 'src/quiz/quiz.service';
+import { UserService } from '../user/user.service';
+import { QuizService } from '../quiz/quiz.service';
 
 @Injectable()
 export class ScoreService {

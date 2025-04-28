@@ -1,8 +1,8 @@
-import { Injectable, NotFoundException, UseGuards } from '@nestjs/common';
-import { PrismaService } from 'src/prisma.service';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { PrismaService } from '../prisma.service';
 import { CreateQuizDto } from './dto/createQuiz.dto';
 import { UpdateQuizDto } from './dto/updateQuiz.dto';
-import { CategoryService } from 'src/category/category.service';
+import { CategoryService } from '../category/category.service';
 
 @Injectable()
 export class QuizService {

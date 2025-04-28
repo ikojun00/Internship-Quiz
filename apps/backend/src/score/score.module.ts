@@ -3,9 +3,9 @@ import { PrismaService } from '../prisma.service';
 import { AuthModule } from '../auth/auth.module';
 import { ScoreController } from './score.controller';
 import { ScoreService } from './score.service';
-import { UserService } from 'src/user/user.service';
-import { QuizService } from 'src/quiz/quiz.service';
-import { CategoryService } from 'src/category/category.service';
+import { UserService } from '../user/user.service';
+import { QuizService } from '../quiz/quiz.service';
+import { CategoryService } from '../category/category.service';
 
 @Module({
   imports: [AuthModule],

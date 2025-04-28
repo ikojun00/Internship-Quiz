@@ -16,7 +16,7 @@ import { Role } from '@prisma/client';
 import { ApiBearerAuth, ApiOperation } from '@nestjs/swagger';
 import { CreateCategoryDto } from './dto/createCategory.dto';
 import { UpdateCategoryDto } from './dto/updateCategory.dto';
-import { RolesGuard } from 'src/auth/roles.guard';
+import { RolesGuard } from '../auth/roles.guard';
 
 @Controller('categories')
 export class CategoryController {

@@ -16,7 +16,7 @@ import { Role } from '@prisma/client';
 import { UpdateQuestionDto } from './dto/updateQuestion.dto';
 import { CreateQuestionDto } from './dto/createQuestion.dto';
 import { ApiBearerAuth, ApiOperation } from '@nestjs/swagger';
-import { RolesGuard } from 'src/auth/roles.guard';
+import { RolesGuard } from '../auth/roles.guard';
 
 @Controller('questions')
 @ApiBearerAuth()

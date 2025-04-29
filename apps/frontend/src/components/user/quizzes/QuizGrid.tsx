@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import { Quiz } from "@/types";
 import { QuizCard } from "./QuizCard";
-import LoadingSpinner from "../../LoadingSpinner";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 interface QuizGridProps {
   quizzes: Quiz[];
@@ -19,9 +19,8 @@ export const QuizGrid: React.FC<QuizGridProps> = ({
   selectedCategoryId,
   clearFilters,
 }) => {
-  if (isLoading) <LoadingSpinner />;
-
-  if (quizzes.length === 0) {
+  if (isLoading) return <LoadingSpinner />;
+  else if (quizzes.length === 0) {
     return (
       <div className="text-center py-12">
         <p className="text-lg text-muted-foreground">No quizzes found</p>

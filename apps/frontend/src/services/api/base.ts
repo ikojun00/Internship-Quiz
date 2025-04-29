@@ -1,6 +1,7 @@
 import axios from "axios";
 
-axios.defaults.baseURL = "";
+const isDevelopment = import.meta.env.DEV;
+axios.defaults.baseURL = isDevelopment ? "http://localhost:3000" : "";
 
 axios.interceptors.request.use(
   (config) => {

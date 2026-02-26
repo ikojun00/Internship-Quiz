@@ -5,18 +5,14 @@
   },
   "builds": [
     {
-      "src": "apps/backend/src/main.ts",
+      "src": "package.json",
       "use": "@vercel/node"
-    },
-    {
-      "src": "apps/frontend/dist/**",
-      "use": "@vercel/static"
     }
   ],
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "apps/backend/src/main.ts"
+      "dest": "apps/backend/dist/src/main.js"
     },
     {
       "src": "/(.+\\..+)",
@@ -26,5 +22,8 @@
       "src": "/(.*)",
       "dest": "apps/frontend/dist/index.html"
     }
-  ]
+  ],
+  "outputDirectory": "apps/frontend/dist",
+  "buildCommand": "npm run build",
+  "installCommand": "npm install"
 }

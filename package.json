@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "turbo run dev",
     "build": "turbo run build",
-    "start": "node apps/backend/dist/src/main",
+    "start": "node apps/backend/dist/src/main.js",
     "postinstall": "cd apps/backend && npx prisma generate"
   }
 }
